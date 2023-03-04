@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import dagger.hilt.android.AndroidEntryPoint
 import fr.deuspheara.rickandmorty.databinding.ActivityCharactersBinding
 
+@AndroidEntryPoint
 class CharactersActivity : AppCompatActivity() {
 
     private lateinit var navController : NavController
