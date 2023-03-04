@@ -3,6 +3,7 @@ package fr.deuspheara.rickandmorty.data.models
 import com.squareup.moshi.Json
 
 data class ResultCharacter (
+    /** Result of the character. */
     @Json(name = "id")
     val id: Int = 0,
     @Json(name = "name")
