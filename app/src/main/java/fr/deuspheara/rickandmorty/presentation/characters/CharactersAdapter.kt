@@ -1,8 +1,11 @@
 package fr.deuspheara.rickandmorty.presentation.characters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +60,19 @@ class CharactersAdapter(private var resultsCharacter: ArrayList<ResultCharacter>
             Glide.with(itemView.context)
                 .load(resultCharacter.image)
                 .into(binding.characterImage)
+            binding.characterItem.setOnClickListener {
+                val bundle = bundleOf(
+                    "characterId" to resultCharacter.id,
+                    "characterName" to resultCharacter.name,
+                    "characterStatus" to resultCharacter.status,
+                    "characterSpecies" to resultCharacter.species,
+                    "characterOrigin" to resultCharacter.origin?.name,
+                    "characterLocation" to resultCharacter.location?.name,
+                    "characterImage" to resultCharacter.image
+                )
+                val action = CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailsFragment()
+                itemView.findNavController().navigate(action.actionId, bundle)
+            }
         }
     }
 }
