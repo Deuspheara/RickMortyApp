@@ -38,14 +38,45 @@ class CharactersFragment : Fragment() {
         pagingAdapter = CharactersPagingAdapter(arrayListOf())
         adapter = CharacterAdapter(arrayListOf())
 
-        viewLifecycleOwner.lifecycle.coroutineScope.launch {
-            viewModel.getCharacters().collect {
-                pagingAdapter.submitData(it)
+        setupUi()
+        setupListener()
+
+        return binding.root
+    }
+
+    private fun setupUi(){
+        if(NetworkUtils.provideIsNetworkAvailable(requireContext())) {
+            binding.progressBar.visibility = View.VISIBLE
+            viewLifecycleOwner.lifecycle.coroutineScope.launch {
+                viewModel.getCharacters().collect {
+                    binding.progressBar.visibility = View.GONE
+                    pagingAdapter.submitData(it)
+                }
             }
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.infoInternet.visibility = View.VISIBLE
+            binding.retryButton.visibility = View.VISIBLE
         }
+
+
         binding.charactersRecyclerView.adapter = pagingAdapter
         binding.charactersRecyclerView.layoutManager =  LinearLayoutManager(requireContext())
 
+    }
+    private fun setupListener(){
+
+        binding.retryButton.setOnClickListener {
+            if(NetworkUtils.provideIsNetworkAvailable(requireContext())) {
+                binding.infoInternet.visibility = View.GONE
+                binding.retryButton.visibility = View.GONE
+                viewLifecycleOwner.lifecycle.coroutineScope.launch {
+                    viewModel.getCharacters().collect {
+                        pagingAdapter.submitData(it)
+                    }
+                }
+            }
+        }
 
         binding.charactersRecyclerView.addOnScrollListener(object : PaginationScrollListener(binding.charactersRecyclerView.layoutManager as LinearLayoutManager) {
             override fun isLastPage(): Boolean {
@@ -58,10 +89,10 @@ class CharactersFragment : Fragment() {
 
             override fun loadMoreItems() {
                 isLoading = true
-                binding.progressBar.isVisible = true
+                binding.progressBar.visibility = View.VISIBLE
                 viewLifecycleOwner.lifecycle.coroutineScope.launch {
                     viewModel.getCharacters().collect {
-                        binding.progressBar.isVisible = false
+                        binding.progressBar.visibility = View.GONE
                         pagingAdapter.submitData(it)
                     }
                 }
@@ -115,8 +146,6 @@ class CharactersFragment : Fragment() {
             }
 
         })
-
-        return binding.root
     }
 
 

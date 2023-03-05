@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
-    id 'kotlin-parcelize'
 }
 
 android {
@@ -76,12 +75,6 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
     implementation "io.coil-kt:coil-compose:2.2.2"
-
-    // Room Database
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    testImplementation "androidx.room:room-testing:$roomVersion"
 
     //Pagination
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
