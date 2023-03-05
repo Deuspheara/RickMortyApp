@@ -23,6 +23,11 @@ class CharactersRepository @Inject constructor(
     val characters: LiveData<CharacterRM>
         get() = _characters
 
+    /**
+     * Get characters from API with paging.
+     *
+     * @return Flow of PagingData
+     */
     fun getCharacters() : Flow<PagingData<ResultCharacter>> {
         Log.d("CharactersRepository", "getCharacters")
         return Pager(
@@ -34,6 +39,12 @@ class CharactersRepository @Inject constructor(
         ).flow
     }
 
+    /**
+     * Search characters from API.
+     *
+     * @param name Name of character
+     * @return LiveData of CharacterRM
+     */
     suspend fun searchCharacters(name: String) : LiveData<CharacterRM> {
         Log.d("CharactersRepository", "searchCharacters: $name")
         val data = MutableLiveData<CharacterRM>()

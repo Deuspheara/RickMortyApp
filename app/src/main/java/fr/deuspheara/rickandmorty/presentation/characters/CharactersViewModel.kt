@@ -20,10 +20,21 @@ import javax.inject.Inject
 class CharactersViewModel @Inject constructor(private val repository: CharactersRepository) : ViewModel() {
 
 
+    /**
+     * Get characters from API with paging.
+     *
+     * @return Flow of PagingData
+     */
     fun getCharacters() : Flow<PagingData<ResultCharacter>> {
         return repository.getCharacters().cachedIn(viewModelScope)
     }
 
+    /**
+     * Search characters from API.
+     *
+     * @param name Name of character
+     * @return LiveData of CharacterRM
+     */
     suspend fun searchCharacters(name: String) : LiveData<CharacterRM> {
         return repository.searchCharacters(name)
     }

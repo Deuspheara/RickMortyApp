@@ -10,10 +10,6 @@ class RickMortyApp : Application() {
     companion object {
         private lateinit var appContext: Context
 
-        fun getAppContext(): Context {
-            return appContext
-        }
-
         fun applicationContext(): Application {
             return appContext as Application
         }

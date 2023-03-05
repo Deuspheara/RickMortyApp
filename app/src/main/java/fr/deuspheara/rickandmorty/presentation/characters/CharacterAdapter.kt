@@ -26,8 +26,7 @@ class CharacterAdapter(private var resultsCharacter: ArrayList<ResultCharacter>)
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
         holder.bind(resultsCharacter[position])
     }
-
-
+    
     fun updateCharacters(newCharacters: List<ResultCharacter>) {
         resultsCharacter.clear()
         resultsCharacter.addAll(newCharacters)

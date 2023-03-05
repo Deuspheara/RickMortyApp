@@ -10,6 +10,13 @@ class CharactersPagingSource(
     private val charactersApi: CharactersApi
 ): PagingSource<Int, ResultCharacter>() {
 
+    /**
+     * Load data from the PagingSource.
+     *
+     * @param params Parameters for loading data from the PagingSource.
+     * @return A [LoadResult] that contains the data loaded from the PagingSource, and positioning
+     * information for the next load.
+     */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultCharacter> {
         val page = params.key ?: 1
         return try {
