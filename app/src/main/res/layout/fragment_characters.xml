@@ -7,6 +7,7 @@
     tools:context=".presentation.characters.CharactersFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/charactersRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"

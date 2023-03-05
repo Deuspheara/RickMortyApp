@@ -12,5 +12,5 @@ interface CharactersApi {
      * @return Response<CharacterRM>
      */
     @GET("character")
-    suspend fun getCharacterPaging(@Query("page") page: Int? = null): Response<List<CharacterRM>>
+    suspend fun getCharacterPaging(@Query("page") page: Int? = null): Response<CharacterRM>
 }

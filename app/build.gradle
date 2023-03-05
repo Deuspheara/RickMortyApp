@@ -17,7 +17,7 @@ android {
         targetSdk rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "BASE_URL", "\"https://rickandmortyapi.com/api\""
+        buildConfigField "String", "BASE_URL", "\"https://rickandmortyapi.com/api/\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
