@@ -5,22 +5,21 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.deuspheara.rickandmorty.data.models.CharacterRM
 import fr.deuspheara.rickandmorty.data.models.ResultCharacter
 import fr.deuspheara.rickandmorty.data.repository.CharactersRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersViewModel @Inject constructor(private val repository: CharactersRepository) : ViewModel() {
 
-    val charactersListLiveData : LiveData<CharacterRM>
-        get() = repository.characters
 
-    fun getCharacters(page: Int? = null) {
-        viewModelScope.launch {
-            repository.getCharacters(page)
-        }
+    fun getCharacters() : Flow<PagingData<ResultCharacter>> {
+        return repository.getCharacters().cachedIn(viewModelScope)
     }
 }

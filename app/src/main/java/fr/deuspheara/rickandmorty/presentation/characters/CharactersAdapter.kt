@@ -3,6 +3,8 @@ package fr.deuspheara.rickandmorty.presentation.characters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import fr.deuspheara.rickandmorty.R
@@ -10,7 +12,20 @@ import fr.deuspheara.rickandmorty.data.models.ResultCharacter
 import fr.deuspheara.rickandmorty.databinding.CharacterItemBinding
 
 
-class CharactersAdapter(private var resultsCharacter: ArrayList<ResultCharacter>) : RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder>() {
+class CharactersAdapter(private var resultsCharacter: ArrayList<ResultCharacter>) : PagingDataAdapter<ResultCharacter, CharactersAdapter.CharactersViewHolder>(COMPARATOR) {
+
+
+    companion object {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<ResultCharacter>() {
+            override fun areItemsTheSame(oldItem: ResultCharacter, newItem: ResultCharacter): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: ResultCharacter, newItem: ResultCharacter): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.character_item, parent, false)
@@ -18,12 +33,9 @@ class CharactersAdapter(private var resultsCharacter: ArrayList<ResultCharacter>
     }
 
     override fun onBindViewHolder(holder: CharactersViewHolder, position: Int) {
-        holder.bind(resultsCharacter[position])
+        holder.bind(getItem(position) ?: return)
     }
 
-    override fun getItemCount(): Int {
-        return resultsCharacter.size
-    }
 
     fun updateCharacters(newCharacters: List<ResultCharacter>) {
         resultsCharacter.clear()
