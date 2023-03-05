@@ -1,5 +1,6 @@
 package fr.deuspheara.rickandmorty.data.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import fr.deuspheara.rickandmorty.data.api.CharactersApi
@@ -12,6 +13,7 @@ class CharactersPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultCharacter> {
         val page = params.key ?: 1
         return try {
+            Log.d("CharactersPagingSource", "load: $page")
             val response = charactersApi.getCharacterPaging(page)
             val results = response.body()?.results ?: emptyList()
             LoadResult.Page(

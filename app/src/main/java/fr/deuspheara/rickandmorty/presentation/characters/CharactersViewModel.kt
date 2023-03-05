@@ -1,6 +1,7 @@
 package fr.deuspheara.rickandmorty.presentation.characters
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -21,5 +22,9 @@ class CharactersViewModel @Inject constructor(private val repository: Characters
 
     fun getCharacters() : Flow<PagingData<ResultCharacter>> {
         return repository.getCharacters().cachedIn(viewModelScope)
+    }
+
+    suspend fun searchCharacters(name: String) : LiveData<CharacterRM> {
+        return repository.searchCharacters(name)
     }
 }
