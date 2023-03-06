@@ -1,4 +1,4 @@
-#RickMortyApp
+# RickMortyApp
 
 This is an android app that uses the Rick and Morty API to display characters and their information.
 Link to the API: https://rickandmortyapi.com/
